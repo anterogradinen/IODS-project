@@ -11,7 +11,7 @@
 
 
 
-<title>chapter1.knit</title>
+<title>chapter2.knit</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -352,188 +352,20 @@ display: none;
 </div>
 
 
-<div id="about-the-project" class="section level1">
-<h1>About the project</h1>
-<p><em>Write a short description about the course and add a link to your
-GitHub repository here. This is an R Markdown (.Rmd) file so you should
-use R Markdown syntax.</em></p>
-<p>This is course diary of the course Introduction to Open Data Science.
-My repository can be found here: <a href="https://github.com/anterogradinen/IODS-project">https://github.com/<em>anterogradinen</em>/IODS-project</a></p>
-<pre class="r"><code># This is a so-called &quot;R chunk&quot; where you can write R code.
-
-date()</code></pre>
-<pre><code>## [1] &quot;Mon Nov  6 22:30:05 2023&quot;</code></pre>
-</div>
-<div id="chapter-1" class="section level1">
-<h1>Chapter 1</h1>
-<p>Assignment 1: Tasks and Instructions copied from Moodle.</p>
-<ol style="list-style-type: decimal">
-<li><p>DONE. Check that you have everything installed and created
-according to the instructions. You should have a GitHub repository, a
-course diary web page (also on GitHub, in a different address) and the
-IODS-project started on RStudio using the course templates.  <strong>(3
-p)<br />
-</strong></p></li>
-<li><p>DONE. Open the file chapter1.Rmd located in your IODS-project
-folder with <strong>RStudio</strong>. Just write some of your thoughts
-about this course freely in the file, e.g., How are you feeling right
-now? What do you expect to learn? Where did you hear about the
-course?</p>
-<ol style="list-style-type: decimal">
-<li><p>Feelings. I am excited of this course! I am already with one
-R-course but this course takes in consideration open data aspect which
-is really interesting and future skill.</p></li>
-<li><p>Expectations. I really hope that this and other R-course I have
-support my learning process to become starting data-analyst. Also the
-aspect of open data and its possibilities really inspires me.</p></li>
-<li><p>Where did I hear about this course? I have came across this
-course coupe of times but now I really have the possibility to
-participate to this.</p></li>
-</ol></li>
-<li><p>Also reflect on your learning experiences with the <strong>R for
-Health Data Science</strong> book and the <strong>Exercise Set
-1</strong>:</p>
-<ol style="list-style-type: decimal">
-<li><p>How did it work as a “crash course” on modern R tools and using
-RStudio?</p>
-<ol style="list-style-type: decimal">
-<li><p>I found the book very useful, because it introduced R and RStudio
-bit different than book “R for Data Science (2e)” by Wickham and
-Çetinkaya-Rundel (<a href="https://r4ds.hadley.nz/data-transform#columns">https://r4ds.hadley.nz/</a>),
-which I have read previously during this autumn. Both books support each
-other.</p></li>
-<li><p>Although I felt that first five chapters in a one week was bit
-too much. (I am currently writing this after chapter 3.5.)</p></li>
-<li><p>First I wasn’t sure if the Excercise1-material was needed because
-the book provided the code which can be copy-pasted, but the exercise
-material saved lot of time when you did not have to download all the
-example data and copy-paste every example script.</p></li>
-</ol></li>
-<li><p>Which were your favorite topics?</p>
-<ol style="list-style-type: decimal">
-<li>I have found chapters 3.3., 3.4. and 3.5. so far most useful. (I am
-currently writing this after chapter 3.5.)</li>
-</ol></li>
-<li><p>Which topics were most difficult?</p>
-<ol style="list-style-type: decimal">
-<li>I think that that internalizing how to use group_by and summarise
-may take some time. Also ungrouping was something I need to return later
-on.</li>
-</ol></li>
-<li><p>Some other comments on the book and our new approach of getting
-started with R Markdown etc.? (All this is just “warmup” to get well
-started and learn also the technical steps needed each week in Moodle,
-that is, submit and review.</p></li>
-<li><p>We will start more serious work next week! You can already look
-at the next topic in Moodle and begin working with the Exercise Set
-2...)</p></li>
-</ol></li>
-<li><p><strong>DONE</strong> Also add in the file a link to your GitHub
-repository (that you created earlier): <a href="https://github.com/anterogradinen/IODS-project" class="uri">https://github.com/anterogradinen/IODS-project</a></p></li>
-<li><p>You can immediately start to learn the basics of the <strong>R
-Markdown</strong> syntax that we will use for writing the exercise
-reports: Try, for example, highlighting parts of your text, adding some
-headers, lists, links etc. <strong><em>Hint:</em></strong> Use the R
-Markdown Reference Guide or cheatsheet (both found from the RStudio
-Help). This is an excellent <strong>quick (1 min) tour</strong> of R
-Markdown, please watch: <a href="https://rmarkdown.rstudio.com/lesson-1.html" class="uri">https://rmarkdown.rstudio.com/lesson-1.html</a></p></li>
-<li><p>DONE. Remember to save your chapter1.Rmd file. <strong>(5
-p)</strong></p></li>
-<li><p><strong>DONE</strong> Open the index.Rmd file with RStudio. At
-the beginning of the file, in the YAML options below the ‘title’ option,
-add the following option: <strong>author: “Your Name”</strong>. Save the
-file and “knit” the document (there’s a button for that) as an HTML
-page. This will also update the index.html file. <strong>(2
-p)</strong></p></li>
-<li><p><strong>DONE.</strong> (This point added in 2022 - let’s hope it
-works similarly in 2023!)<br />
-To make the connection between RStudioand GitHub as smooth as possible,
-you should create a <strong>Personal Access Token (PAT)</strong>.<br />
-</p>
-<p>The shortest way to proceed is to follow the steps below. (Source: <a href="https://happygitwithr.com/https-pat.html" class="uri">https://happygitwithr.com/https-pat.html</a>)</p>
-<p>Execute these R commands in the RStudio Console (below the
-Editor):<br />
-</p>
-<pre><code>install.packages(&quot;usethis&quot;)
-usethis::create_github_token()</code></pre>
-<p>GitHub website will open in your browser. Log in with your GitHub
-credentials.<br />
-</p>
+<div id="insert-chapter-2-title-here" class="section level1">
+<h1>Insert chapter 2 title here</h1>
+<p><em>Describe the work you have done this week and summarize your
+learning.</em></p>
 <ul>
-<li><p>Write a <strong>Note</strong> in the box, for example “IODS
-Project”.</p></li>
-<li><p>Select an <strong>Expiration</strong> time for your PAT, e.g., 50
-days.</p></li>
-<li><p>The pre-selected <strong>scopes</strong> “repo”, “workflow”,
-“gist”, and “user” are OK.</p></li>
-<li><p>Press <strong>“Generate token”</strong> and <strong>copy the
-generated PAT to your clipboard</strong>.
-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</p></li>
+<li>Describe your work and results clearly.</li>
+<li>Assume the reader has an introductory course level understanding of
+writing and reading R code as well as statistical methods.</li>
+<li>Assume the reader has no previous knowledge of your data or the more
+advanced methods you are using.</li>
 </ul>
-<p><br />
-Return to RStudio and continue in the Console:<br />
-</p>
-<pre><code>gitcreds::gitcreds_set()</code></pre>
-<ul>
-<li><p>WAIT until a prompt “Enter password or token:” appears.</p></li>
-<li><p>Paste your PAT to the prompt and press Enter.<br />
-<br />
-</p></li>
-</ul>
-<p>Now you should be able to work with GitHub, i.e., push and pull from
-RStudio. Congrats!! <strong>(5 p)</strong></p></li>
-<li><p>Upload the changes to GitHub (the version control platform) from
-RStudio.<br />
-<br />
-There are a few phases <strong>(don’t worry: all this will become an
-easy routine for you very soon!)</strong>:<br />
-</p></li>
-<li><p>DEMO</p>
-<ul>
-<li><p>First, select the “Git” tab in the upper right corner of RStudio.
-You will see a list of modified files.</p></li>
-<li><p>Select “Commit”. It will open a new “Review Changes” window
-showing more detailed information of the changes you have made in each
-file since the previous version.</p></li>
-<li><p>Tick the box in the front of each file <em>(be patient, it takes
-some time for the check to appear).</em></p></li>
-<li><p>Write a small <strong>commit message</strong> (there’s a box for
-that) that describes your changes briefly. After this task is completed
-(not yet), both the changes and the message will be seen on GitHub.
-(<strong>Note:</strong> It is useful to make commits often and even on
-small changes. <strong>Commits are at the heart of the version control
-system, as a single commit represents a single version of the
-file.</strong>)</p></li>
-<li><p>Press “Commit”. (RStudio uses Git to implement the changes
-included in the commit.)</p></li>
-<li><p>Press “Push”. (RStudio uses Git to upload the changes to your
-GitHub repository.)</p></li>
-<li><p>Now you can close the “Review Changes” window of RStudio. Good
-job!! <strong>(5 p)</strong><br />
-</p></li>
-</ul>
-<p><br />
-</p></li>
-<li><p><strong><em>After a few moments</em></strong>, go to your GitHub
-repository at<br />
-<a href="https://github.com/anterogradinen/IODS-project">https://github.com/<em>anterogradinen</em>/IODS-project</a><br />
-to see what has changed <strong><em>(please be patient and refresh the
-page)</em>.</strong><br />
-<br />
-Also visit your <strong>course diary</strong> that has been
-automatically been updated at<br />
-<a href="https://anterogradinen.github.io/IODS-project/" class="uri">https://anterogradinen.github.io/IODS-project/</a> and make
-sure you see the changes there as well.</p></li>
-</ol>
-<p><strong>After completing the tasks above you are ready to submit your
-Assignment for the review (using the Moodle Workshop below).</strong>
-<strong>Have the two links (your GitHub repository and your course
-diary) ready! Remember to get back there when the Review phase begins
-(see course schedule).</strong><br />
-</p>
-<p>Have fun and don’t be afraid to ask for help using the Moodle
-discussion forum.</p>
-<hr />
+<pre class="r"><code>date()</code></pre>
+<pre><code>## [1] &quot;Mon Nov  6 22:30:08 2023&quot;</code></pre>
+<p>Here we go again…</p>
 </div>
 
 

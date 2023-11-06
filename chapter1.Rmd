@@ -2,6 +2,8 @@
 
 *Write a short description about the course and add a link to your GitHub repository here. This is an R Markdown (.Rmd) file so you should use R Markdown syntax.*
 
+This is course diary of the course Introduction to Open Data Science. My repository can be found here: [https://github.com/*anterogradinen*/IODS-project](https://github.com/anterogradinen/IODS-project)
+
 ```{r}
 # This is a so-called "R chunk" where you can write R code.
 
@@ -9,9 +11,9 @@ date()
 
 ```
 
-The text continues here.
+# Chapter 1
 
-Copied from Moodle:
+Assignment 1: Tasks and Instructions copied from Moodle.
 
 1.  DONE. Check that you have everything installed and created according to the instructions. You should have a GitHub repository, a course diary web page (also on GitHub, in a different address) and the IODS-project started on RStudio using the course templates.  **(3 p)\
     **
