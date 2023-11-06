@@ -1,4 +1,3 @@
-
 # About the project
 
 *Write a short description about the course and add a link to your GitHub repository here. This is an R Markdown (.Rmd) file so you should use R Markdown syntax.*
@@ -9,5 +8,114 @@
 date()
 
 ```
+
 The text continues here.
 
+Copied from Moodle:
+
+1.  DONE. Check that you have everything installed and created according to the instructions. You should have a GitHub repository, a course diary web page (also on GitHub, in a different address) and the IODS-project started on RStudio using the course templates.  **(3 p)\
+    **
+
+2.  DONE. Open the file chapter1.Rmd located in your IODS-project folder with **RStudio**. Just write some of your thoughts about this course freely in the file, e.g., How are you feeling right now? What do you expect to learn? Where did you hear about the course?
+
+    1.  Feelings. I am excited of this course! I am already with one R-course but this course takes in consideration open data aspect which is really interesting and future skill.
+
+    2.  Expectations. I really hope that this and other R-course I have support my learning process to become starting data-analyst. Also the aspect of open data and its possibilities really inspires me.
+
+    3.  Where did I hear about this course? I have came across this course coupe of times but now I really have the possibility to participate to this.
+
+3.  Also reflect on your learning experiences with the **R for Health Data Science** book and the **Exercise Set 1**:
+
+    1.  How did it work as a "crash course" on modern R tools and using RStudio?
+
+        1.  I found the book very useful, because it introduced R and RStudio bit different than book "R for Data Science (2e)" by Wickham and Çetinkaya-Rundel ([https://r4ds.hadley.nz/](https://r4ds.hadley.nz/data-transform#columns)), which I have read previously during this autumn. Both books support each other.
+
+        2.  Although I felt that first five chapters in a one week was bit too much. (I am currently writing this after chapter 3.5.)
+
+        3.  First I wasn't sure if the Excercise1-material was needed because the book provided the code which can be copy-pasted, but the exercise material saved lot of time when you did not have to download all the example data and copy-paste every example script.
+
+    2.  Which were your favorite topics?
+
+        1.  I have found chapters 3.3., 3.4. and 3.5. so far most useful. (I am currently writing this after chapter 3.5.)
+
+    3.  Which topics were most difficult?
+
+        1.  I think that that internalizing how to use group_by and summarise may take some time. Also ungrouping was something I need to return later on.
+
+    4.  Some other comments on the book and our new approach of getting started with R Markdown etc.? (All this is just "warmup" to get well started and learn also the technical steps needed each week in Moodle, that is, submit and review.
+
+    5.  We will start more serious work next week! You can already look at the next topic in Moodle and begin working with the Exercise Set 2\...)
+
+4.  **DONE** Also add in the file a link to your GitHub repository (that you created earlier): <https://github.com/anterogradinen/IODS-project>
+
+5.  You can immediately start to learn the basics of the **R Markdown** syntax that we will use for writing the exercise reports: Try, for example, highlighting parts of your text, adding some headers, lists, links etc. ***Hint:*** Use the R Markdown Reference Guide or cheatsheet (both found from the RStudio Help). This is an excellent **quick (1 min) tour** of R Markdown, please watch: <https://rmarkdown.rstudio.com/lesson-1.html>
+
+6.  DONE. Remember to save your chapter1.Rmd file. **(5 p)**
+
+7.  **DONE** Open the index.Rmd file with RStudio. At the beginning of the file, in the YAML options below the 'title' option, add the following option: **author: "Your Name"**. Save the file and "knit" the document (there's a button for that) as an HTML page. This will also update the index.html file. **(2 p)**
+
+8.  **DONE.** (This point added in 2022 - let's hope it works similarly in 2023!)\
+    To make the connection between RStudioand GitHub as smooth as possible, you should create a **Personal Access Token (PAT)**.\
+
+    The shortest way to proceed is to follow the steps below. (Source: <https://happygitwithr.com/https-pat.html>)
+
+    Execute these R commands in the RStudio Console (below the Editor):\
+
+        install.packages("usethis")
+        usethis::create_github_token()
+
+    GitHub website will open in your browser. Log in with your GitHub credentials.\
+
+    -   Write a **Note** in the box, for example "IODS Project".
+
+    -   Select an **Expiration** time for your PAT, e.g., 50 days.
+
+    -   The pre-selected **scopes** "repo", "workflow", "gist", and "user" are OK.
+
+    -   Press **"Generate token"** and **copy the generated PAT to your clipboard**. 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
+
+    \
+    Return to RStudio and continue in the Console:\
+
+        gitcreds::gitcreds_set()
+
+    -   WAIT until a prompt "Enter password or token:" appears.
+
+    -   Paste your PAT to the prompt and press Enter.\
+        \
+
+    Now you should be able to work with GitHub, i.e., push and pull from RStudio. Congrats!! **(5 p)**
+
+9.  Upload the changes to GitHub (the version control platform) from RStudio.\
+    \
+    There are a few phases **(don't worry: all this will become an easy routine for you very soon!)**:\
+
+    -   First, select the "Git" tab in the upper right corner of RStudio. You will see a list of modified files.
+
+    -   Select "Commit". It will open a new "Review Changes" window showing more detailed information of the changes you have made in each file since the previous version.
+
+    -   Tick the box in the front of each file *(be patient, it takes some time for the check to appear).*
+
+    -   Write a small **commit message** (there's a box for that) that describes your changes briefly. After this task is completed (not yet), both the changes and the message will be seen on GitHub. (**Note:** It is useful to make commits often and even on small changes. **Commits are at the heart of the version control system, as a single commit represents a single version of the file.**)
+
+    -   Press "Commit". (RStudio uses Git to implement the changes included in the commit.)
+
+    -   Press "Push". (RStudio uses Git to upload the changes to your GitHub repository.)
+
+    -   Now you can close the "Review Changes" window of RStudio. Good job!! **(5 p)**\
+
+    \
+
+10. ***After a few moments***, go to your GitHub repository at\
+    <https://github.com/>*your_github_username*/IODS-project\
+    to see what has changed ***(please be patient and refresh the page)*****.**\
+    \
+    Also visit your **course diary** that has been automatically been updated at\
+    <https://*your_github_username>\*.github.io/IODS-project\
+    and make sure you see the changes there as well.
+
+**After completing the tasks above you are ready to submit your Assignment for the review (using the Moodle Workshop below).** **Have the two links (your GitHub repository and your course diary) ready! Remember to get back there when the Review phase begins (see course schedule).**\
+
+Have fun and don't be afraid to ask for help using the Moodle discussion forum.
+
+------------------------------------------------------------------------
