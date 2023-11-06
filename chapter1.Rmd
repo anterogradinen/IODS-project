@@ -90,6 +90,8 @@ Copied from Moodle:
     \
     There are a few phases **(don't worry: all this will become an easy routine for you very soon!)**:\
 
+10. DEMO
+
     -   First, select the "Git" tab in the upper right corner of RStudio. You will see a list of modified files.
 
     -   Select "Commit". It will open a new "Review Changes" window showing more detailed information of the changes you have made in each file since the previous version.
@@ -106,13 +108,12 @@ Copied from Moodle:
 
     \
 
-10. ***After a few moments***, go to your GitHub repository at\
-    <https://github.com/>*your_github_username*/IODS-project\
+11. ***After a few moments***, go to your GitHub repository at\
+    [https://github.com/*anterogradinen*/IODS-project](https://github.com/anterogradinen/IODS-project)\
     to see what has changed ***(please be patient and refresh the page)*****.**\
     \
     Also visit your **course diary** that has been automatically been updated at\
-    <https://*your_github_username>\*.github.io/IODS-project\
-    and make sure you see the changes there as well.
+    <https://anterogradinen.github.io/IODS-project/> and make sure you see the changes there as well.
 
 **After completing the tasks above you are ready to submit your Assignment for the review (using the Moodle Workshop below).** **Have the two links (your GitHub repository and your course diary) ready! Remember to get back there when the Review phase begins (see course schedule).**\
 
