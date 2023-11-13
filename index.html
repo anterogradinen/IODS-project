@@ -379,8 +379,19 @@ to Open Data Science - Course Project</a></li>
 <li><a href="#about-the-project" id="toc-about-the-project">About the
 project</a></li>
 <li><a href="#chapter-1" id="toc-chapter-1">Chapter 1</a></li>
-<li><a href="#insert-chapter-2-title-here" id="toc-insert-chapter-2-title-here">Insert chapter 2 title
-here</a></li>
+<li><a href="#chapter-2-assignment-2-analysis-max-15-points" id="toc-chapter-2-assignment-2-analysis-max-15-points">Chapter 2:
+Assignment 2: Analysis (max 15 points)</a></li>
+<li><a href="#read-the-data-describe-the-dataset-briefly" id="toc-read-the-data-describe-the-dataset-briefly">1. Read the data
+&amp; describe the dataset briefly</a></li>
+<li><a href="#graphical-overview" id="toc-graphical-overview">2.
+Graphical overview</a></li>
+<li><a href="#regression-model" id="toc-regression-model">3. Regression
+model</a></li>
+<li><a href="#explaining-the-relationship-between-explanatory-variables-and-the-target-variable" id="toc-explaining-the-relationship-between-explanatory-variables-and-the-target-variable">4.
+explaining the relationship between explanatory variables and the target
+variable</a></li>
+<li><a href="#diagnostic-plots" id="toc-diagnostic-plots">5. Diagnostic
+plots</a></li>
 </ul>
 </div>
 
@@ -398,7 +409,7 @@ My repository can be found here: <a href="https://github.com/anterogradinen/IODS
 <pre class="r"><code># This is a so-called &quot;R chunk&quot; where you can write R code.
 
 date()</code></pre>
-<pre><code>## [1] &quot;Mon Nov  6 22:30:14 2023&quot;</code></pre>
+<pre><code>## [1] &quot;Mon Nov 13 23:35:17 2023&quot;</code></pre>
 </div>
 <div id="chapter-1" class="section level1">
 <h1>Chapter 1</h1>
@@ -572,20 +583,171 @@ discussion forum.</p>
 <hr />
 <hr />
 </div>
-<div id="insert-chapter-2-title-here" class="section level1">
-<h1>Insert chapter 2 title here</h1>
-<p><em>Describe the work you have done this week and summarize your
-learning.</em></p>
-<ul>
-<li>Describe your work and results clearly.</li>
-<li>Assume the reader has an introductory course level understanding of
-writing and reading R code as well as statistical methods.</li>
-<li>Assume the reader has no previous knowledge of your data or the more
-advanced methods you are using.</li>
-</ul>
+<div id="chapter-2-assignment-2-analysis-max-15-points" class="section level1">
+<h1>Chapter 2: Assignment 2: Analysis (max 15 points)</h1>
+<p>This weeks assignment was a tough one! Also I had last minute tech
+issues with knitting. Apologies if my code and text is difficult to
+read. I tried to use code chunks (like in the “date()” -part) in parts
+1-5 but could not knit whole thing so the code is there in a regular
+text.</p>
+<p>First I read the material and then started doing exercises and only
+then doing Assignment 2 itself. I feel that this was not the best use of
+time.</p>
+<p>This weeks learning curve was quite steep! I think I have learned
+quite lot about linear models this week. Also I found the data and data
+wrangling exercise really useful regarding my own research topic.</p>
+<p>Nevertheless I think I need to read the material again because I am
+not 100% confident when looking model summaries and tables. I also fear
+that if I do not internalise these topics well enough, the rest of the
+course will be torment or I can drop out.</p>
 <pre class="r"><code>date()</code></pre>
-<pre><code>## [1] &quot;Mon Nov  6 22:30:14 2023&quot;</code></pre>
-<p>Here we go again…</p>
+<pre><code>## [1] &quot;Mon Nov 13 23:35:17 2023&quot;</code></pre>
+</div>
+<div id="read-the-data-describe-the-dataset-briefly" class="section level1">
+<h1>1. Read the data &amp; describe the dataset briefly</h1>
+<p>students2014_data &lt;- read.table(“<a href="https://raw.githubusercontent.com/KimmoVehkalahti/Helsinki-Open-Data-Science/master/datasets/learning2014.txt" class="uri">https://raw.githubusercontent.com/KimmoVehkalahti/Helsinki-Open-Data-Science/master/datasets/learning2014.txt</a>”,
+sep = “,”, header = TRUE)</p>
+<p>view(students2014_data)</p>
+<p><u><strong>describe the dataset briefly</strong></u></p>
+<p>glimpse(students2014_data)</p>
+<p>166 respondents: 166 rows and 7 columns</p>
+<p>ff_glimpse(students2014_data)</p>
+<p><u><strong>Comments</strong></u></p>
+<ul>
+<li>age median is 22.0 and mean is 25.5.</li>
+<li>youngest 17 year old and oldest 55 year old,</li>
+<li>points mean 22.7, 23 median, min 7.0 and max 33.00.</li>
+</ul>
+<p>Other variables:</p>
+<ul>
+<li>attitude (mean 3.1),</li>
+<li>deep approach (mean 3.7),</li>
+<li>stategic approach (mean 3.1) and</li>
+<li>surface approach (mean 2.8)</li>
+</ul>
+<p>students2014_data |&gt; count(gender)</p>
+<ul>
+<li>gender split: 110 female (66.3%), 56 male (33.7%)</li>
+</ul>
+</div>
+<div id="graphical-overview" class="section level1">
+<h1>2. Graphical overview</h1>
+<p>Show a graphical overview of the data and show summaries of the
+variables in the data. Describe and interpret the outputs, commenting on
+the distributions of the variables and the relationships between
+them.</p>
+<p>library(GGally) library(ggplot2)</p>
+<p>“create a plot matrix with ggpairs()”</p>
+<p>p &lt;- ggpairs(students2014_data, mapping = aes(col = gender, alpha
+= 0.3), lower = list(combo = wrap(“facethist”, bins = 20)))</p>
+<p>“draw the plot”</p>
+<p>p</p>
+<p>summaries about the variables stated above in part 1.</p>
+<p>Comments based on graphical overview.</p>
+<ul>
+<li><p>As mentioned above: more female respondents than male, but male
+respondents bit more older.</p></li>
+<li><p>Attitude towards statistics: male have more positive attitude
+than female towards statistics in this data. - General observation about
+learning approaches: males responded having tiny bit more deep approach
+than female, female responded having tiny bit more strategic and surface
+approaches than male.</p></li>
+<li><p>When looking correlation matrix noteworthy are that attitudes and
+points are positively correlated in this data and surface and deep
+approaches are negatively correlated.</p></li>
+</ul>
+</div>
+<div id="regression-model" class="section level1">
+<h1>3. Regression model</h1>
+<ul>
+<li><p>Choose three variables as explanatory variables and fit a
+regression model where exam points is the target (dependent, outcome)
+variable. Show a summary of the fitted model and comment and interpret
+the results.</p></li>
+<li><p>Explain and interpret the statistical test related to the model
+parameters. If an explanatory variable in your model does not have a
+statistically significant relationship with the target variable, remove
+the variable from the model and fit the model again without it.
+<strong>(0-4 points)</strong></p></li>
+<li><p>Explanatory variables (selected based on correlation matrix): 1)
+Global attitude toward statistics, 2) gender and 3) strategic approach
+to learning.</p></li>
+<li><p>Dependent, outcome: Exam points</p></li>
+</ul>
+<p><strong>create a regression model with multiple explanatory
+variables</strong></p>
+<p>my_model3 &lt;- lm(points ~ attitude + stra + gender, data =
+students2014_data)</p>
+<p>“print out a summary of the model”</p>
+<p>summary(my_model3)</p>
+<p>Explain and interpret the statistical test related to the model
+parameters.</p>
+<ul>
+<li><p>Attitude has statistically significant connection to points. In
+this model it’s slope is 3.5. Meaning that positive attitude to
+statistics had connection to higher points (one point increase in
+attitude average increased 3.5 of total points during course).</p></li>
+<li><p>Strategic approach had positive connection to points, but
+statistically this connection was not significant.</p></li>
+<li><p>Males had negative connection to points, but statistically this
+connection was not significant.</p></li>
+<li><p>Adjusted R-squared is low (0.1904), meaning that the model does
+not describe data well.</p></li>
+<li><p>Trying to make better model: If an explanatory variable in your
+model does not have a statistically significant relationship with the
+target variable, remove the variable from the model and fit the model
+again without it.</p></li>
+</ul>
+<p>my_model4 &lt;- lm(points ~ attitude, data = students2014_data)
+summary(my_model4)</p>
+<p>Comments about my_model4:</p>
+<ul>
+<li>no mentionable changes in model. Adjusted R-squared is still low
+(0.1804)</li>
+</ul>
+</div>
+<div id="explaining-the-relationship-between-explanatory-variables-and-the-target-variable" class="section level1">
+<h1>4. explaining the relationship between explanatory variables and the
+target variable</h1>
+<p>“Using a summary of your fitted model, explain the relationship
+between the chosen explanatory variables and the target variable
+(interpret the model parameters).”</p>
+<p>Explain and interpret the multiple R-squared of the model.
+<strong>(0-3 points)</strong></p>
+<p>qplot(attitude, points, data = students2014_data) +
+geom_smooth(method = “lm”)</p>
+<p>summary(my_model3)</p>
+<p>Explain and interpret the multiple R-squared of the model.</p>
+<ul>
+<li><p>Based on this model: 20% of the variation of points are explained
+by these selected variables</p></li>
+<li><p>I also add my observation from task 3 above:</p></li>
+<li><p>Attitude has statistically significant connection to points. In
+this model it’s slope is 3.5. Meaning that positive attitude to
+statistics had connection to higher points (one point increase in
+attitude average increased 3.5 of total points during course).</p></li>
+<li><p>Strategic approach had positive connection to points, but
+statistically this connection was not significant.</p></li>
+<li><p>Males had negative connection to points, but statistically this
+connection was not significant.</p></li>
+<li><p>Adjusted R-squared is low (0.1904), meaning that the model does
+not describe data well.</p></li>
+</ul>
+</div>
+<div id="diagnostic-plots" class="section level1">
+<h1>5. Diagnostic plots</h1>
+<p>Produce the following diagnostic plots: Residuals vs Fitted values,
+Normal QQ-plot and Residuals vs Leverage.</p>
+<p>Explain the assumptions of the model and interpret the validity of
+those assumptions based on the diagnostic plots. <strong>(0-3
+points)</strong></p>
+<p>my_model3 &lt;- lm(points ~ attitude + gender, data =
+students2014_data) plot(my_model3, which = c(1,2,5))</p>
+<p>Explination and interpretation: - The observations are normally
+distributed around the fitted line because a normal Q-Q plot shows
+residuals in line with the straight line. - this is good sign, meaning
+that residuals are observations are equally distributed aroung the
+linear model line, which can be also visually seen in qplot above.</p>
 <hr />
 <p>(more chapters to be added similarly as we proceed with the
 course!)</p>

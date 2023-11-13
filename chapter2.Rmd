@@ -14,7 +14,9 @@ date()
 
 ```{r}
 students2014_data <- read.table("https://raw.githubusercontent.com/KimmoVehkalahti/Helsinki-Open-Data-Science/master/datasets/learning2014.txt", sep = ",", header = TRUE)
+```
 
+```{r}
 view(students2014_data)
 
 #describe the dataset briefly
@@ -23,6 +25,8 @@ ff_glimpse(students2014_data) #age median is 22.0 and mean is 25.5. youngest 17 
 students2014_data |> 
   count(gender) # gender split: 110 female (66.3%), 56 male (33.7%)
 ```
+
+
 
 ## 2. Graphical overview 
 
