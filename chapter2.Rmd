@@ -1,13 +1,124 @@
-# Insert chapter 2 title here
+# Chapter 2: Assignment 2: Analysis (max 15 points)
 
-*Describe the work you have done this week and summarize your learning.*
+This weeks assignment was a tough one! First I read the material and then started doing exercises and only then doing Assignment 2 itself. I feel that this was not the best use of time.
 
--   Describe your work and results clearly.
--   Assume the reader has an introductory course level understanding of writing and reading R code as well as statistical methods.
--   Assume the reader has no previous knowledge of your data or the more advanced methods you are using.
+This weeks learning curve was quite steep! I think I have learned quite lot about linear models this week. Also I found the data and data wrangling exercise really useful regarding my own research topic.
+
+Nevertheless I think I need to read the material again because I am not 100% confident when looking model summaries and tables. I also fear that if I do not internalise these topics well enough, the rest of the course will be torment or I can drop out.
 
 ```{r}
 date()
 ```
 
-Here we go again...
+## 1. Read the data & describe the dataset briefly
+
+```{r}
+students2014_data <- read.table("https://raw.githubusercontent.com/KimmoVehkalahti/Helsinki-Open-Data-Science/master/datasets/learning2014.txt", sep = ",", header = TRUE)
+
+view(students2014_data)
+
+#describe the dataset briefly
+glimpse(students2014_data) # 166 respondents: 166 rows and 7 columns
+ff_glimpse(students2014_data) #age median is 22.0 and mean is 25.5. youngest 17 year old and oldest 55 year old, points mean 22.7, 23 median, min 7.0 and max 33.00. Other variables: attitude (mean 3.1), deep approach (mean 3.7), stategic approach (mean 3.1) and surface approach (mean 2.8)
+students2014_data |> 
+  count(gender) # gender split: 110 female (66.3%), 56 male (33.7%)
+```
+
+## 2. Graphical overview 
+
+Show a graphical overview of the data and show summaries of the variables in the data. Describe and interpret the outputs, commenting on the distributions of the variables and the relationships between them.
+
+```{r}
+
+library(GGally)
+library(ggplot2)
+
+# create a plot matrix with ggpairs()
+p <- ggpairs(students2014_data, mapping = aes(col = gender, alpha = 0.3), lower = list(combo = wrap("facethist", bins = 20)))
+
+# draw the plot
+p
+
+#summaries about the variables stated above in part 1.
+
+# Comments based on graphical overview.
+# As mentioned above: more female respondents than male, but male respondents bit more older.
+# Attitude towards statistics: male have more positive attitude than female towards statistics in this data.
+# General observation about learning approaches: males responded having tiny bit more deep approach than female, female responded having tiny bit more strategic and surface approaches than male.
+# When looking correlation matrix noteworthy are that attitudes and points are positively correlated in this data and surface and deep approaches are negatively correlated.
+
+```
+
+## 3. Regression model
+
+Choose three variables as explanatory variables and fit a regression model where exam points is the target (dependent, outcome) variable. Show a summary of the fitted model and comment and interpret the results.
+
+Explain and interpret the statistical test related to the model parameters. If an explanatory variable in your model does not have a statistically significant relationship with the target variable, remove the variable
+from the model and fit the model again without it. **(0-4 points)**
+
+```{r}
+
+# Explanatory variables (selected based on correlation matrix): 1) Global attitude toward statistics, 2) gender and 3) strategic approach to learning.
+# Dependent, outcome: Exam points
+
+# create a regression model with multiple explanatory variables
+my_model3 <- lm(points ~ attitude + stra + gender, data = students2014_data)
+
+# print out a summary of the model
+summary(my_model3)
+
+# Explain and interpret the statistical test related to the model parameters. 
+# Attitude has statistically significant connection to points. In this model it's slope is 3.5. Meaning that positive attitude to statistics had connection to higher points (one point increase in attitude average increased 3.5 of total points during course). 
+# Strategic approach had positive connection to points, but statistically this connection was not significant.
+# Males had negative connection to points, but statistically this connection was not significant.
+# Adjusted R-squared is low (0.1904), meaning that the model does not describe data well.
+
+# Trying to make better model: If an  explanatory variable in your model does not have a statistically significant relationship with the target variable, remove the variable from the model and fit the model again without it.
+my_model4 <- lm(points ~ attitude, data = students2014_data)
+summary(my_model4)
+
+# Comments: no mentionable changes in model. Adjusted R-squared is still low (0.1804)
+
+```
+
+## 4. explaining the relationship between explanatory variables and the target variable
+
+Using a summary of your fitted model, explain the relationship between the
+chosen explanatory variables and the target variable (interpret the
+model parameters).
+
+Explain and interpret the multiple R-squared of the model. **(0-3 points)**
+
+```{r}
+
+qplot(attitude, points, data = students2014_data) + geom_smooth(method = "lm")
+summary(my_model3)
+
+# Explain and interpret the multiple R-squared of the model.
+# Based on this model: 20% of the variation of points are explained by these selected variables
+
+# I also add my observation from task 3 above: 
+
+#   Attitude has statistically significant connection to points. In this model it's slope is 3.5. Meaning that positive attitude to statistics had connection to higher points (one point increase in attitude average increased 3.5 of total points during course). 
+#   Strategic approach had positive connection to points, but statistically this connection was not significant.
+#   Males had negative connection to points, but statistically this connection was not significant.
+#   Adjusted R-squared is low (0.1904), meaning that the model does not describe data well.
+```
+
+## 5. Diagnostic plots
+
+Produce the following diagnostic plots: Residuals vs Fitted values, Normal
+QQ-plot and Residuals vs Leverage.
+
+Explain the assumptions of the model and interpret the validity of those assumptions based on the diagnostic plots. **(0-3 points)**
+
+```{r}
+my_model3 <- lm(points ~ attitude + gender, data = students2014_data)
+plot(my_model3, which = c(1,2,5))
+
+# explination and interpretation: 
+
+# The observations are normally distributed around the fitted line because a normal Q-Q plot shows residuals in line with the straight line.
+
+# this is good sign, meaning that residuals are observations are equally distributed aroung the linear model line, which can be also visually seen in qplot above. 
+```
