@@ -393,7 +393,7 @@ variable</a></li>
 <li><a href="#diagnostic-plots" id="toc-diagnostic-plots">5. Diagnostic
 plots</a>
 <ul>
-<li><a href="#analysis-max-15-points" id="toc-analysis-max-15-points">Analysis (max 15 points)</a></li>
+<li><a href="#assignment-3" id="toc-assignment-3">Assignment 3</a></li>
 </ul></li>
 </ul>
 </div>
@@ -412,7 +412,7 @@ My repository can be found here: <a href="https://github.com/anterogradinen/IODS
 <pre class="r"><code># This is a so-called &quot;R chunk&quot; where you can write R code.
 
 date()</code></pre>
-<pre><code>## [1] &quot;Fri Nov 17 10:30:42 2023&quot;</code></pre>
+<pre><code>## [1] &quot;Sun Nov 19 20:34:01 2023&quot;</code></pre>
 </div>
 <div id="chapter-1" class="section level1">
 <h1>Chapter 1</h1>
@@ -604,7 +604,7 @@ not 100% confident when looking model summaries and tables. I also fear
 that if I do not internalise these topics well enough, the rest of the
 course will be torment or I can drop out.</p>
 <pre class="r"><code>date()</code></pre>
-<pre><code>## [1] &quot;Fri Nov 17 10:30:42 2023&quot;</code></pre>
+<pre><code>## [1] &quot;Sun Nov 19 20:34:02 2023&quot;</code></pre>
 </div>
 <div id="read-the-data-describe-the-dataset-briefly" class="section level1">
 <h1>1. Read the data &amp; describe the dataset briefly</h1>
@@ -752,12 +752,262 @@ residuals in line with the straight line. - this is good sign, meaning
 that residuals are observations are equally distributed aroung the
 linear model line, which can be also visually seen in qplot above.</p>
 <hr />
-<div id="analysis-max-15-points" class="section level2">
-<h2>Analysis (max 15 points)</h2>
-<pre class="r"><code>date()</code></pre>
-<pre><code>## [1] &quot;Fri Nov 17 10:30:42 2023&quot;</code></pre>
+<div id="assignment-3" class="section level2">
+<h2>Assignment 3</h2>
+<div id="analysis-max-15-points" class="section level3">
+<h3>Analysis (max 15 points)</h3>
+<pre class="r"><code>date() #testing does the code chunk work (had issues with assignment 2)</code></pre>
+<pre><code>## [1] &quot;Sun Nov 19 20:34:02 2023&quot;</code></pre>
+<p>If you wish, you can knit the chapter3.Rmd file as a html document
+anytime to see how it looks. But for submission, the output of your
+Analysis should appear in your course diary. For this you need to update
+your local index.html file by knitting the index.Rmd file (which should
+include chapter3.Rmd as a new child file) and then push the changes to
+GitHub.</p>
+<p>Write a continuous report with a clear structure. There is no need to
+repeat the assignments in your course diary. The focus of your work
+should be on the clarity of your report and for full points you should
+be able to show an understanding of the methods and results used in your
+analysis. Feel free to also use material outside this course as learning
+sources. Clear, understandable and comprehensive explanations are worth
+the full points.</p>
+<p>The joined data set used in the analysis exercise combines the two
+student alcohol consumption data sets. The following adjustments have
+been made:</p>
+<p>The variables not used for joining the two data have been combined by
+averaging (including the grade variables)</p>
+<p>‘alc_use’ is the average of ‘Dalc’ and ‘Walc’ ‘high_use’ is TRUE if
+‘alc_use’ is higher than 2 and FALSE otherwise</p>
+</div>
+<div id="section" class="section level3">
+<h3>1</h3>
+<p>Create a new R Markdown file and save it as an empty file named
+‘chapter3.Rmd’. Then include the file as a child file in your
+‘index.Rmd’ file (similarily to ‘chapter1.Rmd’ and ‘chapter2.Rmd’).
+Perform the following analysis in the chapter3.Rmd file.</p>
+<p>DONE</p>
+</div>
+<div id="section-1" class="section level3">
+<h3>2</h3>
+<p>Read the joined student alcohol consumption data into R either from
+your local folder (if you completed the Data wrangling part) or from
+this url (in case you got stuck with the Data wrangling part):</p>
+<p><a href="https://raw.githubusercontent.com/KimmoVehkalahti/Helsinki-Open-Data-Science/master/datasets/alc.csv" class="uri">https://raw.githubusercontent.com/KimmoVehkalahti/Helsinki-Open-Data-Science/master/datasets/alc.csv</a></p>
+<p>(In the above linked file, the column separator is a comma and the
+first row includes the column names). Print out the names of the
+variables in the data and describe the data set briefly, assuming the
+reader has no previous knowledge of it. There is information related to
+the data here. (0-1 point)</p>
+<pre class="r"><code>library(dplyr)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code>library(tidyr)
+library(finalfit)
+library(tidyverse)</code></pre>
+<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+## ✔ forcats   1.0.0     ✔ readr     2.1.4
+## ✔ ggplot2   3.4.3     ✔ stringr   1.5.0
+## ✔ lubridate 1.9.2     ✔ tibble    3.2.1
+## ✔ purrr     1.0.2</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<pre class="r"><code>alc3 &lt;- read.table(&quot;https://raw.githubusercontent.com/KimmoVehkalahti/Helsinki-Open-Data-Science/master/datasets/alc.csv&quot;, sep = &quot;,&quot;, header = T)
+
+view(alc3)
+colnames(alc3)</code></pre>
+<pre><code>##  [1] &quot;school&quot;     &quot;sex&quot;        &quot;age&quot;        &quot;address&quot;    &quot;famsize&quot;   
+##  [6] &quot;Pstatus&quot;    &quot;Medu&quot;       &quot;Fedu&quot;       &quot;Mjob&quot;       &quot;Fjob&quot;      
+## [11] &quot;reason&quot;     &quot;guardian&quot;   &quot;traveltime&quot; &quot;studytime&quot;  &quot;schoolsup&quot; 
+## [16] &quot;famsup&quot;     &quot;activities&quot; &quot;nursery&quot;    &quot;higher&quot;     &quot;internet&quot;  
+## [21] &quot;romantic&quot;   &quot;famrel&quot;     &quot;freetime&quot;   &quot;goout&quot;      &quot;Dalc&quot;      
+## [26] &quot;Walc&quot;       &quot;health&quot;     &quot;failures&quot;   &quot;paid&quot;       &quot;absences&quot;  
+## [31] &quot;G1&quot;         &quot;G2&quot;         &quot;G3&quot;         &quot;alc_use&quot;    &quot;high_use&quot;</code></pre>
+<pre class="r"><code>glimpse(alc3)</code></pre>
+<pre><code>## Rows: 370
+## Columns: 35
+## $ school     &lt;chr&gt; &quot;GP&quot;, &quot;GP&quot;, &quot;GP&quot;, &quot;GP&quot;, &quot;GP&quot;, &quot;GP&quot;, &quot;GP&quot;, &quot;GP&quot;, &quot;GP&quot;, &quot;GP&quot;,…
+## $ sex        &lt;chr&gt; &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;M&quot;, &quot;M&quot;, &quot;F&quot;, &quot;M&quot;, &quot;M&quot;, &quot;F&quot;, &quot;F&quot;,…
+## $ age        &lt;int&gt; 18, 17, 15, 15, 16, 16, 16, 17, 15, 15, 15, 15, 15, 15, 15,…
+## $ address    &lt;chr&gt; &quot;U&quot;, &quot;U&quot;, &quot;U&quot;, &quot;U&quot;, &quot;U&quot;, &quot;U&quot;, &quot;U&quot;, &quot;U&quot;, &quot;U&quot;, &quot;U&quot;, &quot;U&quot;, &quot;U&quot;,…
+## $ famsize    &lt;chr&gt; &quot;GT3&quot;, &quot;GT3&quot;, &quot;LE3&quot;, &quot;GT3&quot;, &quot;GT3&quot;, &quot;LE3&quot;, &quot;LE3&quot;, &quot;GT3&quot;, &quot;LE…
+## $ Pstatus    &lt;chr&gt; &quot;A&quot;, &quot;T&quot;, &quot;T&quot;, &quot;T&quot;, &quot;T&quot;, &quot;T&quot;, &quot;T&quot;, &quot;A&quot;, &quot;A&quot;, &quot;T&quot;, &quot;T&quot;, &quot;T&quot;,…
+## $ Medu       &lt;int&gt; 4, 1, 1, 4, 3, 4, 2, 4, 3, 3, 4, 2, 4, 4, 2, 4, 4, 3, 3, 4,…
+## $ Fedu       &lt;int&gt; 4, 1, 1, 2, 3, 3, 2, 4, 2, 4, 4, 1, 4, 3, 2, 4, 4, 3, 2, 3,…
+## $ Mjob       &lt;chr&gt; &quot;at_home&quot;, &quot;at_home&quot;, &quot;at_home&quot;, &quot;health&quot;, &quot;other&quot;, &quot;servic…
+## $ Fjob       &lt;chr&gt; &quot;teacher&quot;, &quot;other&quot;, &quot;other&quot;, &quot;services&quot;, &quot;other&quot;, &quot;other&quot;, …
+## $ reason     &lt;chr&gt; &quot;course&quot;, &quot;course&quot;, &quot;other&quot;, &quot;home&quot;, &quot;home&quot;, &quot;reputation&quot;, …
+## $ guardian   &lt;chr&gt; &quot;mother&quot;, &quot;father&quot;, &quot;mother&quot;, &quot;mother&quot;, &quot;father&quot;, &quot;mother&quot;,…
+## $ traveltime &lt;int&gt; 2, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 3, 1, 2, 1, 1, 1, 3, 1, 1,…
+## $ studytime  &lt;int&gt; 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 3, 1, 2, 3, 1, 3, 2, 1, 1,…
+## $ schoolsup  &lt;chr&gt; &quot;yes&quot;, &quot;no&quot;, &quot;yes&quot;, &quot;no&quot;, &quot;no&quot;, &quot;no&quot;, &quot;no&quot;, &quot;yes&quot;, &quot;no&quot;, &quot;n…
+## $ famsup     &lt;chr&gt; &quot;no&quot;, &quot;yes&quot;, &quot;no&quot;, &quot;yes&quot;, &quot;yes&quot;, &quot;yes&quot;, &quot;no&quot;, &quot;yes&quot;, &quot;yes&quot;,…
+## $ activities &lt;chr&gt; &quot;no&quot;, &quot;no&quot;, &quot;no&quot;, &quot;yes&quot;, &quot;no&quot;, &quot;yes&quot;, &quot;no&quot;, &quot;no&quot;, &quot;no&quot;, &quot;ye…
+## $ nursery    &lt;chr&gt; &quot;yes&quot;, &quot;no&quot;, &quot;yes&quot;, &quot;yes&quot;, &quot;yes&quot;, &quot;yes&quot;, &quot;yes&quot;, &quot;yes&quot;, &quot;yes…
+## $ higher     &lt;chr&gt; &quot;yes&quot;, &quot;yes&quot;, &quot;yes&quot;, &quot;yes&quot;, &quot;yes&quot;, &quot;yes&quot;, &quot;yes&quot;, &quot;yes&quot;, &quot;ye…
+## $ internet   &lt;chr&gt; &quot;no&quot;, &quot;yes&quot;, &quot;yes&quot;, &quot;yes&quot;, &quot;no&quot;, &quot;yes&quot;, &quot;yes&quot;, &quot;no&quot;, &quot;yes&quot;,…
+## $ romantic   &lt;chr&gt; &quot;no&quot;, &quot;no&quot;, &quot;no&quot;, &quot;yes&quot;, &quot;no&quot;, &quot;no&quot;, &quot;no&quot;, &quot;no&quot;, &quot;no&quot;, &quot;no&quot;…
+## $ famrel     &lt;int&gt; 4, 5, 4, 3, 4, 5, 4, 4, 4, 5, 3, 5, 4, 5, 4, 4, 3, 5, 5, 3,…
+## $ freetime   &lt;int&gt; 3, 3, 3, 2, 3, 4, 4, 1, 2, 5, 3, 2, 3, 4, 5, 4, 2, 3, 5, 1,…
+## $ goout      &lt;int&gt; 4, 3, 2, 2, 2, 2, 4, 4, 2, 1, 3, 2, 3, 3, 2, 4, 3, 2, 5, 3,…
+## $ Dalc       &lt;int&gt; 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1,…
+## $ Walc       &lt;int&gt; 1, 1, 3, 1, 2, 2, 1, 1, 1, 1, 2, 1, 3, 2, 1, 2, 2, 1, 4, 3,…
+## $ health     &lt;int&gt; 3, 3, 3, 5, 5, 5, 3, 1, 1, 5, 2, 4, 5, 3, 3, 2, 2, 4, 5, 5,…
+## $ failures   &lt;int&gt; 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0,…
+## $ paid       &lt;chr&gt; &quot;no&quot;, &quot;no&quot;, &quot;yes&quot;, &quot;yes&quot;, &quot;yes&quot;, &quot;yes&quot;, &quot;no&quot;, &quot;no&quot;, &quot;yes&quot;, …
+## $ absences   &lt;int&gt; 5, 3, 8, 1, 2, 8, 0, 4, 0, 0, 1, 2, 1, 1, 0, 5, 8, 3, 9, 5,…
+## $ G1         &lt;int&gt; 2, 7, 10, 14, 8, 14, 12, 8, 16, 13, 12, 10, 13, 11, 14, 16,…
+## $ G2         &lt;int&gt; 8, 8, 10, 14, 12, 14, 12, 9, 17, 14, 11, 12, 14, 11, 15, 16…
+## $ G3         &lt;int&gt; 8, 8, 11, 14, 12, 14, 12, 10, 18, 14, 12, 12, 13, 12, 16, 1…
+## $ alc_use    &lt;dbl&gt; 1.0, 1.0, 2.5, 1.0, 1.5, 1.5, 1.0, 1.0, 1.0, 1.0, 1.5, 1.0,…
+## $ high_use   &lt;lgl&gt; FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALS…</code></pre>
+<pre class="r"><code>ff_glimpse(alc3)</code></pre>
+<pre><code>## $Continuous
+##                 label var_type   n missing_n missing_percent mean  sd  min
+## age               age    &lt;int&gt; 370         0             0.0 16.6 1.2 15.0
+## Medu             Medu    &lt;int&gt; 370         0             0.0  2.8 1.1  0.0
+## Fedu             Fedu    &lt;int&gt; 370         0             0.0  2.6 1.1  0.0
+## traveltime traveltime    &lt;int&gt; 370         0             0.0  1.4 0.7  1.0
+## studytime   studytime    &lt;int&gt; 370         0             0.0  2.0 0.8  1.0
+## famrel         famrel    &lt;int&gt; 370         0             0.0  3.9 0.9  1.0
+## freetime     freetime    &lt;int&gt; 370         0             0.0  3.2 1.0  1.0
+## goout           goout    &lt;int&gt; 370         0             0.0  3.1 1.1  1.0
+## Dalc             Dalc    &lt;int&gt; 370         0             0.0  1.5 0.9  1.0
+## Walc             Walc    &lt;int&gt; 370         0             0.0  2.3 1.3  1.0
+## health         health    &lt;int&gt; 370         0             0.0  3.6 1.4  1.0
+## failures     failures    &lt;int&gt; 370         0             0.0  0.2 0.6  0.0
+## absences     absences    &lt;int&gt; 370         0             0.0  4.5 5.5  0.0
+## G1                 G1    &lt;int&gt; 370         0             0.0 11.5 2.7  2.0
+## G2                 G2    &lt;int&gt; 370         0             0.0 11.5 2.8  4.0
+## G3                 G3    &lt;int&gt; 370         0             0.0 11.5 3.3  0.0
+## alc_use       alc_use    &lt;dbl&gt; 370         0             0.0  1.9 1.0  1.0
+##            quartile_25 median quartile_75  max
+## age               16.0   17.0        17.0 22.0
+## Medu               2.0    3.0         4.0  4.0
+## Fedu               2.0    3.0         3.8  4.0
+## traveltime         1.0    1.0         2.0  4.0
+## studytime          1.0    2.0         2.0  4.0
+## famrel             4.0    4.0         5.0  5.0
+## freetime           3.0    3.0         4.0  5.0
+## goout              2.0    3.0         4.0  5.0
+## Dalc               1.0    1.0         2.0  5.0
+## Walc               1.0    2.0         3.0  5.0
+## health             3.0    4.0         5.0  5.0
+## failures           0.0    0.0         0.0  3.0
+## absences           1.0    3.0         6.0 45.0
+## G1                10.0   12.0        14.0 18.0
+## G2                10.0   12.0        14.0 18.0
+## G3                10.0   12.0        14.0 18.0
+## alc_use            1.0    1.5         2.5  5.0
+## 
+## $Categorical
+##                 label var_type   n missing_n missing_percent levels_n levels
+## school         school    &lt;chr&gt; 370         0             0.0        2      -
+## sex               sex    &lt;chr&gt; 370         0             0.0        2      -
+## address       address    &lt;chr&gt; 370         0             0.0        2      -
+## famsize       famsize    &lt;chr&gt; 370         0             0.0        2      -
+## Pstatus       Pstatus    &lt;chr&gt; 370         0             0.0        2      -
+## Mjob             Mjob    &lt;chr&gt; 370         0             0.0        5      -
+## Fjob             Fjob    &lt;chr&gt; 370         0             0.0        5      -
+## reason         reason    &lt;chr&gt; 370         0             0.0        4      -
+## guardian     guardian    &lt;chr&gt; 370         0             0.0        3      -
+## schoolsup   schoolsup    &lt;chr&gt; 370         0             0.0        2      -
+## famsup         famsup    &lt;chr&gt; 370         0             0.0        2      -
+## activities activities    &lt;chr&gt; 370         0             0.0        2      -
+## nursery       nursery    &lt;chr&gt; 370         0             0.0        2      -
+## higher         higher    &lt;chr&gt; 370         0             0.0        2      -
+## internet     internet    &lt;chr&gt; 370         0             0.0        2      -
+## romantic     romantic    &lt;chr&gt; 370         0             0.0        2      -
+## paid             paid    &lt;chr&gt; 370         0             0.0        2      -
+## high_use     high_use    &lt;lgl&gt; 370         0             0.0        2      -
+##            levels_count levels_percent
+## school                -              -
+## sex                   -              -
+## address               -              -
+## famsize               -              -
+## Pstatus               -              -
+## Mjob                  -              -
+## Fjob                  -              -
+## reason                -              -
+## guardian              -              -
+## schoolsup             -              -
+## famsup                -              -
+## activities            -              -
+## nursery               -              -
+## higher                -              -
+## internet              -              -
+## romantic              -              -
+## paid                  -              -
+## high_use              -              -</code></pre>
+<p>Description:</p>
+</div>
+<div id="section-2" class="section level3">
+<h3>3</h3>
+<p>The purpose of your analysis is to study the relationships between
+high/low alcohol consumption and some of the other variables in the
+data. To do this, choose 4 interesting variables in the data and for
+each of them, present your personal hypothesis about their relationships
+with alcohol consumption. (0-1 point)</p>
+</div>
+<div id="section-3" class="section level3">
+<h3>4</h3>
+<p>Numerically and graphically explore the distributions of your chosen
+variables and their relationships with alcohol consumption (use for
+example cross-tabulations, bar plots and box plots). Comment on your
+findings and compare the results of your exploration to your previously
+stated hypotheses. (0-5 points)</p>
+</div>
+<div id="section-4" class="section level3">
+<h3>5</h3>
+<p>Use logistic regression to statistically explore the relationship
+between your chosen variables and the binary high/low alcohol
+consumption variable as the target variable. Present and interpret a
+summary of the fitted model. Present and interpret the coefficients of
+the model as odds ratios and provide confidence intervals for them.
+Interpret the results and compare them to your previously stated
+hypothesis. Hint: If your model includes factor variables, see for
+example the RHDS book or the first answer of this stack exchange thread
+on how R treats and how you should interpret these variables in the
+model output (or use some other resource to study this). (0-5
+points)</p>
+</div>
+<div id="section-5" class="section level3">
+<h3>6</h3>
+<p>Using the variables which, according to your logistic regression
+model, had a statistical relationship with high/low alcohol consumption,
+explore the predictive power of you model. Provide a 2x2 cross
+tabulation of predictions versus the actual values and optionally
+display a graphic visualizing both the actual values and the
+predictions. Compute the total proportion of inaccurately classified
+individuals (= the training error) and comment on all the results.
+Compare the performance of the model with performance achieved by some
+simple guessing strategy. (0-3 points)</p>
+<p>Bonus: Perform 10-fold cross-validation on your model. Does your
+model have better test set performance (smaller prediction error using
+10-fold cross-validation) compared to the model introduced in the
+Exercise Set (which had about 0.26 error). Could you find such a model?
+(0-2 points to compensate any loss of points from the above
+exercises)</p>
+<p>Super-Bonus: Perform cross-validation to compare the performance of
+different logistic regression models (= different sets of predictors).
+Start with a very high number of predictors and explore the changes in
+the training and testing errors as you move to models with less
+predictors. Draw a graph displaying the trends of both training and
+testing errors by the number of predictors in the model. (0-4 points to
+compensate any loss of points from the above exercises)</p>
+<p>After completing all the phases above you are ready to submit your
+Assignment for the review (using the Moodle Workshop below). Have the
+two links (your GitHub repository and your course diary) ready!</p>
 <p>(more chapters to be added similarly as we proceed with the
 course!)</p>
+</div>
 </div>
 </div>
 

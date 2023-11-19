@@ -35,10 +35,11 @@ Read the joined student alcohol consumption data into R either from your local f
 library(dplyr)
 library(tidyr)
 library(finalfit)
+library(tidyverse)
 
 alc3 <- read.table("https://raw.githubusercontent.com/KimmoVehkalahti/Helsinki-Open-Data-Science/master/datasets/alc.csv", sep = ",", header = T)
 
-view(alc)
+view(alc3)
 colnames(alc3)
 glimpse(alc3)
 ff_glimpse(alc3)

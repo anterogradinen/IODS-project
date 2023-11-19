@@ -357,7 +357,7 @@ display: none;
 <div id="analysis-max-15-points" class="section level3">
 <h3>Analysis (max 15 points)</h3>
 <pre class="r"><code>date() #testing does the code chunk work (had issues with assignment 2)</code></pre>
-<pre><code>## [1] &quot;Sun Nov 19 14:12:53 2023&quot;</code></pre>
+<pre><code>## [1] &quot;Sun Nov 19 20:33:18 2023&quot;</code></pre>
 <p>If you wish, you can knit the chapter3.Rmd file as a html document
 anytime to see how it looks. But for submission, the output of your
 Analysis should appear in your course diary. For this you need to update
@@ -409,9 +409,19 @@ the data here. (0-1 point)</p>
 ##     intersect, setdiff, setequal, union</code></pre>
 <pre class="r"><code>library(tidyr)
 library(finalfit)
+library(tidyverse)</code></pre>
+<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+## ✔ forcats   1.0.0     ✔ readr     2.1.4
+## ✔ ggplot2   3.4.3     ✔ stringr   1.5.0
+## ✔ lubridate 1.9.2     ✔ tibble    3.2.1
+## ✔ purrr     1.0.2</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<pre class="r"><code>alc3 &lt;- read.table(&quot;https://raw.githubusercontent.com/KimmoVehkalahti/Helsinki-Open-Data-Science/master/datasets/alc.csv&quot;, sep = &quot;,&quot;, header = T)
 
-alc3 &lt;- read.table(&quot;https://raw.githubusercontent.com/KimmoVehkalahti/Helsinki-Open-Data-Science/master/datasets/alc.csv&quot;, sep = &quot;,&quot;, header = T)
-
+view(alc3)
 colnames(alc3)</code></pre>
 <pre><code>##  [1] &quot;school&quot;     &quot;sex&quot;        &quot;age&quot;        &quot;address&quot;    &quot;famsize&quot;   
 ##  [6] &quot;Pstatus&quot;    &quot;Medu&quot;       &quot;Fedu&quot;       &quot;Mjob&quot;       &quot;Fjob&quot;      
