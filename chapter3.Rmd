@@ -1,26 +1,12 @@
 ## Assignment 3
 
-### Analysis (max 15 points)
+### Analysis
 
 ```{r}
 date() #testing does the code chunk work (had issues with assignment 2)
 ```
 
-If you wish, you can knit the chapter3.Rmd file as a html document anytime to see how it looks. But for submission, the output of your Analysis should appear in your course diary. For this you need to update your local index.html file by knitting the index.Rmd file (which should include chapter3.Rmd as a new child file) and then push the changes to GitHub.
-
-Write a continuous report with a clear structure. There is no need to repeat the assignments in your course diary. The focus of your work should be on the clarity of your report and for full points you should be able to show an understanding of the methods and results used in your analysis. Feel free to also use material outside this course as learning sources. Clear, understandable and comprehensive explanations are worth the full points.
-
-The joined data set used in the analysis exercise combines the two student alcohol consumption data sets. The following adjustments have been made:
-
-The variables not used for joining the two data have been combined by averaging (including the grade variables)
-
-'alc_use' is the average of 'Dalc' and 'Walc' 'high_use' is TRUE if 'alc_use' is higher than 2 and FALSE otherwise
-
-### 1
-
-Create a new R Markdown file and save it as an empty file named 'chapter3.Rmd'. Then include the file as a child file in your 'index.Rmd' file (similarily to 'chapter1.Rmd' and 'chapter2.Rmd'). Perform the following analysis in the chapter3.Rmd file.
-
-DONE
+As mentioned above, I had some tech issues with last knitting and code chunk. As I did with last week's assignment, I did have had difficult time also with this weeks material and assignment. Unfortunately I did not manage to do every task required. I am bit worried will I fall behind in this course. Nevertheless I found the exercise material really interesting.
 
 ### 2
 
@@ -39,10 +25,7 @@ library(tidyverse)
 
 alc3 <- read.table("https://raw.githubusercontent.com/KimmoVehkalahti/Helsinki-Open-Data-Science/master/datasets/alc.csv", sep = ",", header = T)
 
-view(alc3)
-colnames(alc3)
 glimpse(alc3)
-ff_glimpse(alc3)
 ```
 
 Description:
@@ -51,20 +34,81 @@ Description:
 
 The purpose of your analysis is to study the relationships between high/low alcohol consumption and some of the other variables in the data. To do this, choose 4 interesting variables in the data and for each of them, present your personal hypothesis about their relationships with alcohol consumption. (0-1 point)
 
+For this excercise I study relationship between high and low alcohol consumption gender, education level of parents, and motivation to take higher education.
+
+I am interested to look wheter there is relationship between student's motivation to take higher education and education level of parents to alcohol consumption.
+
+Variables are following (described in: <http://www.archive.ics.uci.edu/dataset/320/student+performance>)
+
+7 Medu - mother's education (numeric: 0 - none, 1 - primary education (4th grade), 2 â€" 5th to 9th grade, 3 â€" secondary education or 4 â€" higher education)
+
+8 Fedu - father's education (numeric: 0 - none, 1 - primary education (4th grade), 2 â€" 5th to 9th grade, 3 â€" secondary education or 4 â€" higher education)
+
+17 famsup - family educational support (binary: yes or no)
+
+21 higher - wants to take higher education (binary: yes or no)
+
+My personal hypothesis about these variables is that would have low (if any) negative correlation:the higher family's education level and student's "education motivation" the lower alchohol consumption.
+
+I also computed mean education level based on both parents education level.
+
 ### 4
 
-Numerically and graphically explore the distributions of your chosen variables and their relationships with alcohol consumption (use for example cross-tabulations, bar plots and box plots). Comment on your findings and compare the results of your exploration to your previously stated hypotheses. (0-5 points)
+Numerically and graphically explore the distributions of your chosen variables and their relationships with alcohol consumption (use for example cross-tabulations, bar plots and box plots).
+
+Comment on your findings and compare the results of your exploration to your previously stated hypotheses. (0-5 points)
+
+First we look how much alcohol is used in different genders. We see that data have 70 male students with high use of alcohol and female students 41.
+
+While looking boxplots of parents' education and high use of alcohol consumption, I do not see much anything of noteworthy. Father's education level median is bit lower with male students with high alcohol consumption. But father's education level median was also lower with female student with low alcohol consumption. I think that boxplot is not the best graphic with this data.
+
+This observations do not really support my hypothesis (but do not refute it necessarily). I also note that would analyze both parents' education level and alcohol consumption bit better than with mean grade. Unfortunately I ran out of time with this assignment. :(
+
+```{r}
+
+### bar plots ###
+
+# A plot of alcohol use with gender
+alc3 |> 
+  group_by(sex) |> 
+  count(alc3$high_use)
+
+g1 <- ggplot(data = alc3, aes(x = high_use))
+g1 + geom_bar() + facet_wrap("sex")
+
+### box plots ###
+
+# a plot of high_use and mother's education
+g1 <- ggplot(alc3, aes(x = high_use, y = Medu, col = sex))
+g1 + geom_boxplot() + ylab("Mother's education")
+
+# a plot of high_use and father's education
+g2 <- ggplot(alc3, aes(x = high_use, y = Fedu, col = sex))
+g2 + geom_boxplot() + ylab("Father's education")
+
+# a plot of high_use and parents' education (Pedu, mean of Medu ja Fedu) 
+alc3 <- mutate(alc3, Pedu = ((Medu + Fedu) / 2))
+g3 <- ggplot(alc3, aes(x = high_use, y = Pedu, col = sex))
+g3 + geom_boxplot() + ylab("Parents' education")
+
+
+
+
+
+```
 
 ### 5
 
-Use logistic regression to statistically explore the relationship between your chosen variables and the binary high/low alcohol consumption variable as the target variable. Present and interpret a summary of the fitted model. Present and interpret the coefficients of the model as odds ratios and provide confidence intervals for them. Interpret the results and compare them to your previously stated hypothesis. Hint: If your model includes factor variables, see for example the RHDS book or the first answer of this stack exchange thread on how R treats and how you should interpret these variables in the model output (or use some other resource to study this). (0-5 points)
+~~Use logistic regression to statistically explore the relationship between your chosen variables and the binary high/low alcohol consumption variable as the target variable. Present and interpret a summary of the fitted model. Present and interpret the coefficients of the model as odds ratios and provide confidence intervals for them. Interpret the results and compare them to your previously stated hypothesis.~~
+
+~~Hint: If your model includes factor variables, see for example the RHDS book or the first answer of this stack exchange thread on how R treats and how you should interpret these variables in the model output (or use some other resource to study this). (0-5 points)~~
 
 ### 6
 
-Using the variables which, according to your logistic regression model, had a statistical relationship with high/low alcohol consumption, explore the predictive power of you model. Provide a 2x2 cross tabulation of predictions versus the actual values and optionally display a graphic visualizing both the actual values and the predictions. Compute the total proportion of inaccurately classified individuals (= the training error) and comment on all the results. Compare the performance of the model with performance achieved by some simple guessing strategy. (0-3 points)
+~~Using the variables which, according to your logistic regression model, had a statistical relationship with high/low alcohol consumption, explore the predictive power of you model. Provide a 2x2 cross tabulation of predictions versus the actual values and optionally display a graphic visualizing both the actual values and the predictions. Compute the total proportion of inaccurately classified individuals (= the training error) and comment on all the results. Compare the performance of the model with performance achieved by some simple guessing strategy. (0-3 points)~~
 
-Bonus: Perform 10-fold cross-validation on your model. Does your model have better test set performance (smaller prediction error using 10-fold cross-validation) compared to the model introduced in the Exercise Set (which had about 0.26 error). Could you find such a model? (0-2 points to compensate any loss of points from the above exercises)
+~~Bonus: Perform 10-fold cross-validation on your model. Does your model have better test set performance (smaller prediction error using 10-fold cross-validation) compared to the model introduced in the Exercise Set (which had about 0.26 error). Could you find such a model? (0-2 points to compensate any loss of points from the above exercises)~~
 
-Super-Bonus: Perform cross-validation to compare the performance of different logistic regression models (= different sets of predictors). Start with a very high number of predictors and explore the changes in the training and testing errors as you move to models with less predictors. Draw a graph displaying the trends of both training and testing errors by the number of predictors in the model. (0-4 points to compensate any loss of points from the above exercises)
+~~Super-Bonus: Perform cross-validation to compare the performance of different logistic regression models (= different sets of predictors). Start with a very high number of predictors and explore the changes in the training and testing errors as you move to models with less predictors. Draw a graph displaying the trends of both training and testing errors by the number of predictors in the model. (0-4 points to compensate any loss of points from the above exercises)~~
 
-After completing all the phases above you are ready to submit your Assignment for the review (using the Moodle Workshop below). Have the two links (your GitHub repository and your course diary) ready!
+~~After completing all the phases above you are ready to submit your Assignment for the review (using the Moodle Workshop below). Have the two links (your GitHub repository and your course diary) ready!~~
