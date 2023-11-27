@@ -36,9 +36,10 @@ The Housing Values in Suburbs of Boston.
 
     -   lstat lower status of the population (percent).
 
-    -   medv median value of owner-occupied homes in \$1000s.
+-   medv median value of owner-occupied homes in \$1000s.
 
 ```{r}
+
 #install.packages("MASS")
 library(MASS)
 library(finalfit)
@@ -48,7 +49,9 @@ data("Boston")
 glimpse(Boston)
 ff_glimpse(Boston)
 summary(Boston)
+
 ```
+
 
 ## 2. Graphical overview
 
@@ -126,7 +129,7 @@ Drop the old crime rate variable from the dataset
 
 ```{r}
 # remove original crim from the dataset
-boston_scaled <- select(boston_scaled, -crim)
+boston_scaled <- dplyr::select(boston_scaled, -crim)
 
 # add the new categorical value to scaled data
 boston_scaled <- data.frame(boston_scaled, crime)
@@ -150,7 +153,7 @@ train <- boston_scaled[ind,]
 test <- boston_scaled[-ind,]
 ```
 
-## 4. Linear discriminant analysis 
+## 4. Linear discriminant analysis
 
 Fit the linear discriminant analysis on the train set. Use the categorical crime rate as the target variable and all the other variables in the dataset as predictor variables. Draw the LDA (bi)plot. **(0-3 points)**
 
@@ -181,13 +184,13 @@ lda.arrows(lda.fit, myscale = 1)
 
 ```
 
-## 5. Predict & cross tabulate 
+## 5. Predict & cross tabulate
 
 Save the crime categories from the test set and then remove the categorical crime variable from the test dataset. Then predict the classes with the LDA model on the test data. Cross tabulate the results with the crime categories from the test set. Comment on the results. **(0-3 points)**
 
 ```{r}
 correct_classes <- test$crime
-test <- select(test, -crime)
+test <- dplyr::select(test, -crime)
 
 # predict classes with test data
 lda.pred <- predict(lda.fit, newdata = test)
