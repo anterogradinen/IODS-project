@@ -1,4 +1,4 @@
-### Assignment 5: Data analysis
+# Assignment 5: Data analysis
 
 ```{r}
 library(readr)
@@ -64,7 +64,6 @@ Standardize the variables in the human data and repeat the above analysis.
 
 human_stddd <- scale(column_to_rownames(human, "Country"))
 pca_human_stddd <- prcomp(human_stddd)
-pca_human_stddd
 
 # draw a biplot of the principal component representation and the original variables
 biplot(pca_human_stddd, choices = 1:2)
@@ -92,9 +91,109 @@ Load the tea dataset and convert its character variables to factors:
     tea <- read.csv("https://raw.githubusercontent.com/KimmoVehkalahti/Helsinki-Open-Data-Science/master/datasets/tea.csv", stringsAsFactors = TRUE)
 
 \
-Explore the data briefly: look at the structure and the dimensions of the data. Use **View(tea)** to browse its contents, and visualize the data.\
-Use Multiple Correspondence Analysis (MCA) on the tea data (or on just certain columns of the data, it is up to you!). Interpret the results of the MCA and draw at least the variable biplot of the analysis. You can also explore other plotting options for MCA. Comment on the output of the plots. \*\*(0-4 points)\*\*
+Explore the data briefly: look at the structure and the dimensions of the data. Use **View(tea)** to browse its contents, and visualize the data.
 
-**After completing all the phases above you are ready to submit your Assignment for the review (using the Moodle Workshop below).**
+```{r}
 
-**Have the two links (your GitHub repository and your course diary) ready!**
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+
+# Explore the data briefly: look at the structure and the dimensions of the data. Use View(tea) to browse its contents
+tea <- read.csv("https://raw.githubusercontent.com/KimmoVehkalahti/Helsinki-Open-Data-Science/master/datasets/tea.csv", stringsAsFactors = TRUE)
+summary(tea)
+str(tea)
+dim(tea)
+glimpse(tea)
+View(tea)
+
+# visualize the data.
+
+#pivot_longer(tea, cols = everything(-)) %>% ggplot(aes(value)) + facet_wrap("name", scales = "free") +  geom_bar()
+
+# pivot_longer(tea, cols = everything()) %>%  ggplot(aes(value)) + facet_wrap("name", scales = "free") +   geom_bar() + theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8))
+
+# error message from previous two functions: filter age variable out
+
+teatea <- dplyr::select(tea, -age)
+str(teatea)
+
+pivot_longer(teatea, cols = everything()) %>% 
+  ggplot(aes(value)) + facet_wrap("name", scales = "free") +  geom_bar()
+
+pivot_longer(teatea, cols = everything()) %>%  ggplot(aes(value)) + facet_wrap("name", scales = "free") +   geom_bar() + theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8))
+
+
+
+
+```
+
+Have to say that barplottin every variable (except age) gave kind a messy image. I had to pop up the image and use scale out (cmd + - -command with Mac ) quite a lot. Probably it is easiest to do this assignment using same variables used in Exercise because I cannot find any description about whole data set and variables (although many of factors are quite self-explanatory ex. variable sophisticated with levels "Not.sophisticated" and "sophisticated")
+
+The knitted HTML-version last geom_bar plot was terrible so I'll try again with fewer variables.
+
+```{r}
+
+library(ggplot2)
+
+# column names to keep in the dataset & creation of new a dataset
+keep_columns <- c("Tea", "How", "how", "sugar", "where", "lunch")
+tea_time <- dplyr::select(tea, keep_columns)
+
+pivot_longer(tea_time, cols = everything()) %>%  ggplot(aes(value)) + facet_wrap("name", scales = "free") +   geom_bar() + theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8))
+```
+
+**MCA.** Use Multiple Correspondence Analysis (MCA) on the tea data (or on just certain columns of the data, it is up to you!). Interpret the results of the MCA. You can also explore other plotting options for MCA. Comment on the output of the plots.
+
+```{r}
+
+library(FactoMineR)
+library(swirl)
+library(dplyr)
+
+# column names to keep in the dataset & creation of new a dataset
+keep_columns <- c("Tea", "How", "how", "sugar", "where", "lunch")
+tea_time <- dplyr::select(tea, keep_columns)
+
+# multiple correspondence analysis
+mca <- MCA(tea_time, graph = FALSE)
+
+# summary of the model
+summary(mca)
+
+# visualize MCA
+plot(mca, invisible=c("ind"), graph.type = "classic", habillage = "quali")
+
+## for curiousity using MCA for the whole data (only age variable excluded)
+
+mca2 <- MCA(teatea, graph = FALSE)
+
+# summary of the model (whole data)
+summary(mca2)
+
+# visualize MCA (whole data)
+plot(mca2, invisible=c("ind"), graph.type = "classic", habillage = "quali")
+
+# in interpration I focus on the first MCA factor map. 
+```
+
+Interpretation. Both dimensions explain variance not so good because first dim explains 15% of variance and second 14% variance.
+
+As factor variables, the tea shop as a place and unpacked as a tea product is contribute strongly in dim1.
+
+So based on this analysis, it would be good follow-up question to look if green unpacked tea from tea shop is clear dimension or consumer choice in this data.
+
+Another dimension is contributed by 1) other (with what tea is consumed), 2) chain store + tea shop (where), 3) tea bag + unpacked (how is consumed).
+
+I wonder if these could represent spesific taste of consumers. Dim1 would characterize this hardcore unpacked green tea consumer and Dim2 this consumer type who is more open to different ways to consume tea.
+
+look support from here:
+
+<http://factominer.free.fr/factomethods/multiple-correspondence-analysis.html>
+
+Youtube: <https://www.youtube.com/watch?v=reG8Y9ZgcaQ>
+
+... with
+
+"Draw at least the variable biplot of the analysis." No idea what should be done.
