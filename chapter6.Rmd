@@ -1,0 +1,100 @@
+# Week 6: Analysis of longitudinal data   
+
+As always I ran short of time. Unfortunately this time I did not make it to part the end of Part I and could not start in Part II.
+
+## Meet and Repeat: PART I
+
+-   Print out the (column) names of the data
+-   Look at the structure of the data
+-   Print out summaries of the variables in the data
+-   Pay special attention to the structure of the data
+
+```{r}
+
+RATS_ <- read.table("https://raw.githubusercontent.com/KimmoVehkalahti/MABS/master/Examples/data/rats.txt", sep ="\t", header = T)
+
+names(RATS_)
+
+str(RATS_)
+
+summary(RATS_)
+```
+
+###  pivot_longer()
+
+```{r}
+library(dplyr)
+library(tidyr)
+
+# Factor treatment & subject
+
+RATS_$ID <- factor(RATS_$ID)
+RATS_$Group <- factor(RATS_$Group)
+
+# Convert to long form
+
+RATSL_ <- pivot_longer(RATS_, cols = -c(ID, Group), 
+                      names_to = "WD",
+                      values_to = "Weight") %>% 
+  mutate(Time = as.integer(substr(WD, 3, 4))) %>%
+  arrange(Time)
+
+# Take a glimpse at the BPRSL data
+glimpse(RATSL_)
+
+```
+
+### Individuals on the plot
+
+```{r}
+#Access the package ggplot2
+library(ggplot2)
+
+# Draw the plot
+ggplot(RATSL_, aes(x = Time, y = Weight, linetype = ID)) +
+  geom_line() +
+  scale_linetype_manual(values = rep(1:10, times=4)) +
+  facet_grid(. ~ Group, labeller = label_both) +
+  theme(legend.position = "none") + 
+  scale_y_continuous(limits = c(min(RATSL_$Weight), max(RATSL_$Weight)))
+
+```
+
+### Standardise
+
+```{r}
+library(dplyr)
+library(tidyr)
+
+# Standardise the variable Weight
+RATSL_ <- RATSL_ %>%
+  group_by(Time) %>%
+  mutate(stdWeight = scale(Weight)) %>%
+           ungroup(stdWeight)
+  
+RATSL_$stdWeight <- as.numeric(RATSL_$stdWeight)
+
+# Glimpse the data
+glimpse(RATSL_)
+
+# Plot again with the standardised bprs
+library(ggplot2)
+
+ggplot(RATSL_, aes(x = Time, y = Weight, linetype = ID)) +
+  geom_line() +
+  scale_linetype_manual(values = rep(1:10, times=4)) +
+  facet_grid(. ~ Group, labeller = label_both) +
+  theme(legend.position = "none") + 
+  scale_y_continuous(name = "normal bprs")
+
+ggplot(RATSL_, aes(x = Time, y = stdWeight, linetype = ID)) +
+  geom_line() +
+  scale_linetype_manual(values = rep(1:10, times=4)) +
+  facet_grid(. ~ Group, labeller = label_both) +
+  theme(legend.position = "none") + 
+  scale_y_continuous(name = "standardized bprs")
+```
+
+## Meet and Repeat: PART II    
+
+Ran out of time :(
